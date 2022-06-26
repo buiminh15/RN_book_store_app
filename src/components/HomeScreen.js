@@ -137,6 +137,7 @@ function renderMenuTop() {
 }
 
 function renderMyBook() {
+  console.log('render my book')
   return (
     <View style={{marginTop: hp(SIZES.responsive3)}}>
       <View
@@ -242,30 +243,35 @@ function renderMyBookItem({item, index}) {
   );
 }
 
-function renderCategories(category, setCategory) {
+function renderCategories() {
+  const [category, setCategory] = useState(categoriesData[0]);
+
   return (
-    <View
-      style={[
-        styles.rowDirection,
-        {
-          marginHorizontal: wp(SIZES.responsive4),
-          marginVertical: hp(SIZES.responsive2),
-        },
-      ]}>
-      {categoriesData.map(c => (
-        <TouchableOpacity
-          onPress={() => setCategory(c)}
-          key={`category-id${c.id}`}
-          style={{marginRight: wp(SIZES.responsive4)}}>
-          <Text
-            style={{
-              ...FONTS.h2,
-              color: category.id === c.id ? COLORS.white : COLORS.lightGray,
-            }}>
-            {c.categoryName}
-          </Text>
-        </TouchableOpacity>
-      ))}
+    <View>
+      <View
+        style={[
+          styles.rowDirection,
+          {
+            marginHorizontal: wp(SIZES.responsive4),
+            marginVertical: hp(SIZES.responsive2),
+          },
+        ]}>
+        {categoriesData.map(c => (
+          <TouchableOpacity
+            onPress={() => setCategory(c)}
+            key={`category-id${c.id}`}
+            style={{marginRight: wp(SIZES.responsive4)}}>
+            <Text
+              style={{
+                ...FONTS.h2,
+                color: category.id === c.id ? COLORS.white : COLORS.lightGray,
+              }}>
+              {c.categoryName}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </View>
+      {renderCategoriesList(category.books)}
     </View>
   );
 }
@@ -285,7 +291,7 @@ function renderCategoriesList(books) {
 
 function renderCategoriesItem({item}) {
   return (
-    <View
+    <TouchableOpacity
       style={[
         styles.rowDirection,
         {
@@ -412,22 +418,33 @@ function renderCategoriesItem({item}) {
           ))}
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
+const VirtualizedScrollView = props => {
+  return (
+    <FlatList
+      {...props}
+      data={[]}
+      keyExtractor={(e, i) => 'dom' + i.toString()}
+      ListEmptyComponent={null}
+      renderItem={null}
+      ListHeaderComponent={() => <>{props.children}</>}
+    />
+  );
+};
+
 export default function HomeScreen() {
-  const [category, setCategory] = useState(categoriesData[0]);
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        {renderHeader()}
-        {renderMenuTop()}
+      {renderHeader()}
+      {renderMenuTop()}
+      <VirtualizedScrollView>
         {renderMyBook()}
         {renderMyBookList()}
-        {renderCategories(category, setCategory)}
-        {renderCategoriesList(category.books)}
-      </ScrollView>
+        {renderCategories()}
+      </VirtualizedScrollView>
     </SafeAreaView>
   );
 }
