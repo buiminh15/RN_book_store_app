@@ -243,7 +243,7 @@ function renderMyBookItem({item, index}) {
   );
 }
 
-function renderCategories() {
+function renderCategories(categoriesData) {
   const [category, setCategory] = useState(categoriesData[0]);
 
   return (
@@ -303,7 +303,7 @@ function renderCategoriesItem({item}) {
         style={{
           width: wp(22),
           height: hp(18),
-          marginRight: wp(4),
+          marginRight: wp(SIZES.responsive4),
         }}>
         <Image
           source={item.bookCover}
@@ -322,7 +322,7 @@ function renderCategoriesItem({item}) {
             {
               alignItems: 'flex-start',
               justifyContent: 'space-between',
-              marginTop: hp(1),
+              marginTop: hp(SIZES.responsive1),
             },
           ]}>
           <View>
@@ -338,29 +338,29 @@ function renderCategoriesItem({item}) {
               source={icons.bookmark_icon}
               resizeMode="contain"
               style={{
-                width: wp(6),
-                height: hp(3),
-                marginTop: hp(1),
+                width: wp(SIZES.responsive6),
+                height: hp(SIZES.responsive3),
+                marginTop: hp(SIZES.responsive1),
                 tintColor: COLORS.lightGray4,
               }}
             />
           </TouchableOpacity>
         </View>
 
-        <View style={[styles.rowDirection, {marginTop: hp(2)}]}>
+        <View style={[styles.rowDirection, {marginTop: hp(SIZES.responsive2)}]}>
           <View
             style={[
               styles.rowDirection,
-              {alignItems: 'center', marginRight: wp(6)},
+              {alignItems: 'center', marginRight: wp(SIZES.responsive6)},
             ]}>
             <Image
               source={icons.page_filled_icon}
               resizeMode="contain"
               style={{
-                width: wp(4),
-                height: hp(4),
+                width: wp(SIZES.responsive4),
+                height: hp(SIZES.responsive4),
                 tintColor: COLORS.lightGray4,
-                marginRight: wp(3),
+                marginRight: wp(SIZES.responsive3),
               }}
             />
             <Text style={{...FONTS.body4, color: COLORS.lightGray4}}>
@@ -372,10 +372,10 @@ function renderCategoriesItem({item}) {
               source={icons.read_icon}
               resizeMode="contain"
               style={{
-                width: wp(4),
-                height: hp(4),
+                width: wp(SIZES.responsive4),
+                height: hp(SIZES.responsive4),
                 tintColor: COLORS.lightGray4,
-                marginRight: wp(3),
+                marginRight: wp(SIZES.responsive3),
               }}
             />
             <Text style={{...FONTS.body4, color: COLORS.lightGray4}}>
@@ -388,11 +388,11 @@ function renderCategoriesItem({item}) {
             <View
               key={`genre-id-${g}`}
               style={{
-                marginRight: wp(2),
+                marginRight: wp(SIZES.responsive2),
                 marginTop: hp(1 / 2),
-                height: hp(3),
-                paddingHorizontal: wp(3),
-                borderRadius: wp(2),
+                height: hp(SIZES.responsive3),
+                paddingHorizontal: wp(SIZES.responsive3),
+                borderRadius: wp(SIZES.responsive2),
                 backgroundColor:
                   g === 'Adventure'
                     ? COLORS.darkBlue
@@ -435,15 +435,15 @@ const VirtualizedScrollView = props => {
   );
 };
 
-export default function HomeScreen() {
+export default function HomeScreen({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       {renderHeader()}
       {renderMenuTop()}
       <VirtualizedScrollView>
         {renderMyBook()}
-        {renderMyBookList()}
-        {renderCategories()}
+        {renderMyBookList(navigation)}
+        {renderCategories(categoriesData, navigation)}
       </VirtualizedScrollView>
     </SafeAreaView>
   );
