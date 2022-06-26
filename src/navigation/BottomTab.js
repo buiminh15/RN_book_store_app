@@ -31,7 +31,7 @@ export default function BottomTab() {
         tabBarShowLabel: false,
         tabBarStyle: {height: '8%', backgroundColor: COLORS.black},
       }}>
-      {routes.map(route => (
+      {routes?.map(route => (
         <Tab.Screen
           options={{
             headerShown: false,
