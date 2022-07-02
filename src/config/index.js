@@ -1,30 +1,31 @@
 import {icons} from '../../constants';
+import {HomeScreen} from '../components';
 import HomeStack from '../navigation/HomeStack';
 
 const routes = [
   {
     id: 1,
-    name: 'Home',
+    name: 'HomeStack',
     icon: icons.dashboard_icon,
-    component: HomeStack,
+    component: HomeScreen,
   },
   {
     id: 2,
-    name: 'Search',
+    name: 'SearchStack',
     icon: icons.search_icon,
-    component: HomeStack,
+    component: HomeScreen,
   },
   {
     id: 3,
-    name: 'Notification',
+    name: 'NotificationStack',
     icon: icons.notification_icon,
-    component: HomeStack,
+    component: HomeScreen,
   },
   {
     id: 4,
-    name: 'Settings',
+    name: 'SettingsStack',
     icon: icons.menu_icon,
-    component: HomeStack,
+    component: HomeScreen,
   },
 ];
 

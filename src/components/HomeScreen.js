@@ -2,7 +2,6 @@ import {
   FlatList,
   Image,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -137,7 +136,6 @@ function renderMenuTop() {
 }
 
 function renderMyBook() {
-  console.log('render my book')
   return (
     <View style={{marginTop: hp(SIZES.responsive3)}}>
       <View
@@ -165,7 +163,7 @@ function renderMyBook() {
   );
 }
 
-function renderMyBookList() {
+function renderMyBookList(navigation) {
   return (
     <View
       style={{
@@ -176,16 +174,23 @@ function renderMyBookList() {
         horizontal
         showsHorizontalScrollIndicator={false}
         data={myBooksData}
-        renderItem={renderMyBookItem}
+        renderItem={({item, index}) =>
+          renderMyBookItem(item, index, navigation)
+        }
         keyExtractor={item => `my-book-id${item.id}`}
       />
     </View>
   );
 }
 
-function renderMyBookItem({item, index}) {
+function renderMyBookItem(item, index, navigation) {
   return (
     <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('DetailBook', {
+          item,
+        });
+      }}
       style={{
         marginLeft: index === 0 ? wp(SIZES.responsive1) : 0,
         marginRight: wp(SIZES.responsive1),
