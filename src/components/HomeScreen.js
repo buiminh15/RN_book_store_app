@@ -188,7 +188,7 @@ function renderMyBookItem(item, index, navigation) {
     <TouchableOpacity
       onPress={() => {
         navigation.navigate('DetailBook', {
-          item,
+          book: item,
         });
       }}
       style={{
