@@ -1,4 +1,4 @@
 import HomeScreen from './HomeScreen';
-import DetailBook from './DetailBook';
+import BookDetail from './BookDetail';
 
-export {HomeScreen, DetailBook};
+export {HomeScreen, BookDetail};

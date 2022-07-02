@@ -177,7 +177,7 @@ function renderMyBookList(navigation) {
         renderItem={({item, index}) =>
           renderMyBookItem(item, index, navigation)
         }
-        keyExtractor={item => `my-book-id${item.id}`}
+        keyExtractor={item => `my-book-id-${item.id}`}
       />
     </View>
   );

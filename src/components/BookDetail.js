@@ -7,6 +7,7 @@ import {
   View,
   TouchableOpacity,
   ScrollView,
+  Animated,
 } from 'react-native';
 import React from 'react';
 import {COLORS, FONTS, icons, SIZES} from '../../constants';
@@ -14,6 +15,17 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+
+function VerticalLineDivider() {
+  return (
+    <View
+      style={{
+        borderColor: COLORS.lightGray3,
+        borderWidth: wp(SIZES.responsive1 / 10),
+      }}></View>
+  );
+}
+
 function renderHeader(item, navigation) {
   return (
     <ImageBackground
@@ -132,6 +144,7 @@ function renderHeader(item, navigation) {
                 Rating
               </Text>
             </View>
+            <VerticalLineDivider />
             <View
               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               <Text style={{...FONTS.h4, color: item.navTintColor}}>
@@ -146,6 +159,7 @@ function renderHeader(item, navigation) {
                 Number of Page
               </Text>
             </View>
+            <VerticalLineDivider />
             <View
               style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
               <Text style={{...FONTS.h4, color: item.navTintColor}}>
@@ -164,30 +178,18 @@ function renderHeader(item, navigation) {
 
 function renderDescription(description) {
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      scrollEventThrottle={16}
-      onContentSizeChange={(width, height) => {
-          setScrollViewWholeHeight(height)
-      }}
-      onLayout={({ nativeEvent: { layout: { x, y, width, height } } }) => {
-          setScrollViewVisibleHeight(height)
-      }}
-      onScroll={Animated.event(
-          [{ nativeEvent: { contentOffset: { y: indicator } } }],
-          { useNativeDriver: false }
-      )}
-      
-      >
+    <ScrollView showsVerticalScrollIndicator={false} scrollEventThrottle={16}>
       <Text style={{...FONTS.h3, color: COLORS.white, marginVertical: hp(2)}}>
         Description
       </Text>
-      <Text style={{...FONTS.body3, color: COLORS.lightGray}}>{description}</Text>
+      <Text style={{...FONTS.body3, color: COLORS.lightGray}}>
+        {description}
+      </Text>
     </ScrollView>
   );
 }
 
-export default function DetailBook({route, navigation}) {
+export default function BookDetail({route, navigation}) {
   const {item} = route.params;
   return (
     <SafeAreaView style={[styles.container]}>
